@@ -1,0 +1,13 @@
+# Only the lab source code goes to GitHub
+/*
+!/.gitignore
+!/README.md
+!/week 5/
+
+node_modules/
+.DS_Store
+/week 5/provided/
+/week 5/Week5_Submission/
+/week 5/Week5_Report.docx
+/week 5/*.pdf
+/week 5/*.zip

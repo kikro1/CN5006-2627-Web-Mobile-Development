@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Week 5 REST API Tester</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; background: #f5f5f0; }
+        h2 { margin-top: 0; }
+        .row { background: #fff; border: 1px solid #ccc; padding: 10px 14px; margin-bottom: 10px; }
+        .method { display: inline-block; width: 64px; font-weight: bold; }
+        .GET { color: #1a7f37; } .POST { color: #9a6700; } .PUT { color: #0550ae; } .DELETE { color: #cf222e; }
+        input { width: 80px; }
+        button { margin-left: 8px; }
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 12px; min-height: 120px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <h2>Week 5 - Portfolio REST APIs (Employee database)</h2>
+
+    <div class="row">
+        <span class="method POST">POST</span> /insertMany
+        <button onclick="callApi('POST', '/insertMany')">Send</button>
+    </div>
+
+    <div class="row">
+        <span class="method GET">GET</span> /femalesOver30
+        <button onclick="callApi('GET', '/femalesOver30')">Send</button>
+    </div>
+
+    <div class="row">
+        <span class="method GET">GET</span> /count
+        <button onclick="callApi('GET', '/count')">Send</button>
+    </div>
+
+    <div class="row">
+        <span class="method PUT">PUT</span> /updateMany/
+        <input id="gender" value="Female"> /
+        <input id="salary" type="number" value="5555">
+        <button onclick="callApi('PUT', '/updateMany/' + gender.value + '/' + salary.value)">Send</button>
+    </div>
+
+    <div class="row">
+        <span class="method DELETE">DELETE</span> /deleteMany/
+        <input id="age" type="number" value="45">
+        <button onclick="callApi('DELETE', '/deleteMany/' + age.value)">Send</button>
+    </div>
+
+    <div class="row">
+        <span class="method GET">GET</span> /persons
+        <button onclick="callApi('GET', '/persons')">Send</button>
+    </div>
+
+    <p><b id="request">Response:</b></p>
+    <pre id="output"></pre>
+
+    <script>
+        async function callApi(method, url) {
+            document.getElementById('request').textContent = method + ' ' + url + '  ->';
+            const response = await fetch(url, { method: method });
+            const data = await response.json();
+            document.getElementById('output').textContent =
+                'HTTP ' + response.status + '\n\n' + prettyJson(data);
+        }
+
+        // JSON.stringify with indentation, but every simple object (one record) stays on one line
+        function prettyJson(data) {
+            return JSON.stringify(data, null, 2).replace(/\{\n\s+([^{}\[\]]*?)\n\s+\}/g,
+                (match, inner) => '{ ' + inner.replace(/\n\s+/g, ' ') + ' }');
+        }
+    </script>
+
+</body>
+</html>
